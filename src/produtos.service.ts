@@ -1,31 +1,36 @@
-import { Injectable } from "@nestjs/common";
-import { Produto } from "./produto.models";
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Produto } from './produto.models';
 
 @Injectable() //Para transformar uma classe em provider
-export class ProdutosService{
-    produtos: Produto[] = [
-/*         new Produto('COD001', 'Produto 01', 10.90),
-        new Produto('COD002', 'Produto 02', 20.20),
-        new Produto('COD003', 'Produto 03', 30.10) */
-    ]; //array de produtos
+export class ProdutosService {
+  constructor(
+    @InjectModel(Produto)
+    private produtoModel: typeof Produto,
+  ) {}
 
-    obeterTodos(): Produto[] {
-        return this.produtos;
-    }
+  async obeterTodos(): Promise<Produto[]> {
+    return this.produtoModel.findAll();
+  }
 
-    obeterUm(id: number): Produto {
-        return this.produtos[0];
-    }
+  async obeterUm(id: number): Promise<Produto> {
+    return this.produtoModel.findByPk(id);
+  }
 
-    criar(produto: Produto) {
-        this.produtos.push(produto);
-    }
+  async criar(produto: Produto) {
+    this.produtoModel.create(produto);
+  }
 
-    alterar(produto: Produto): Produto {
-        return produto;
-    }
+  async alterar(produto: Produto): Promise<[number, Produto[]]> {
+    return this.produtoModel.update(produto, {
+      where: {
+        id: produto.id,
+      },
+    });
+  }
 
-    apagar(id: number) {
-        this.produtos.pop();
-    }
+  async apagar(id: number) {
+    const produto: Produto = await this.obeterUm(id);
+    produto.destroy();
+  }
 }
