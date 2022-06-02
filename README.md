@@ -14,15 +14,13 @@ Trello com a metodologia Scrum para gerenciamento ágil do projeto. <br>
 - Status code apropriado para cada chamada da API <br>
 - Pratica de Clean Code segundo o livro "Código Limpo Habilidades Práticas do Agile Software" <br>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## Instalação
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Rodar
 
 ```bash
 # development
