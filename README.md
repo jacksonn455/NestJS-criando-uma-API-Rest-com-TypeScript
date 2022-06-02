@@ -1,4 +1,4 @@
-API TypeScript + NestJS + Mongodb + MySQL
+API TypeScript + NestJS + MySQL
 ===============================================
 
 *Metodologia:* <br>
